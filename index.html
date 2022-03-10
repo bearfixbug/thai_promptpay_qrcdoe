@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate QRCode</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="amount" placeholder="amount">
+        <button onclick="genQR()">Generate</button>
+    </div>
+    <img id="imgqr" src="" style="width: 500px; object-fit: contain;">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        function genQR() {
+            $.ajax({
+                method: 'post',
+                url: 'http://localhost:3000/generateQR',
+                data: {
+                    amount: parseFloat($("#amount").val())
+                },
+                success: function(response) {
+                    console.log('good', response)
+                    $("#imgqr").attr('src', response.Result)
+                }, error: function(err) {
+                    console.log('bad', err)
+                }
+            })
+        }
+    </script>
+    
+</body>
+</html>
